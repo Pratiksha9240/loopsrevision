@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alphagen Learning - Python Loops Quiz & Coding Arena</title>
+<style>
+:root {
+    --primary: #4f46e5;
+    --primary-dark: #4338ca;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --success: #10b981;
+    --error: #ef4444;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.brand-header {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+header h1 {
+    font-size: 22px;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+header p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.stats-bar {
+    display: flex;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.badge {
+    background: #e0e7ff;
+    color: var(--primary);
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.score-badge {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.streak-badge {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.timer {
+    font-weight: bold;
+    color: var(--error);
+    background: #fee2e2;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.question-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.option-btn {
+    text-align: left;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.option-btn:hover:not(:disabled) {
+    border-color: var(--primary);
+    background: #f5f3ff;
+}
+
+.option-btn.correct {
+    background: #d1fae5;
+    border-color: var(--success);
+    color: #065f46;
+    font-weight: 600;
+}
+
+.option-btn.incorrect {
+    background: #fee2e2;
+    border-color: var(--error);
+    color: #991b1b;
+    font-weight: 600;
+}
+
+.explanation-box {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.explanation-box.hidden {
+    display: none;
+}
+
+code {
+    background: #f1f5f9;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+    color: #0f172a;
+}
+
+pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: monospace;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+textarea {
+    width: 100%;
+    height: 180px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 13px;
+    resize: vertical;
+    margin-bottom: 15px;
+}
+
+.btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background: var(--primary-dark);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.results-summary {
+    text-align: center;
+}
+
+.results-summary h2 {
+    font-size: 26px;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="brand-header">Alphagen Learning</div>
+        <h1>Python Loops Assessment</h1>
+        <p>20 Theory, Output, Bug-fix, Scenario Questions + 5 Coding Challenges</p>
+    </header>
+
+    <!-- Welcome Screen -->
+    <div id="start-screen" class="card" style="text-align: center;">
+        <h2>Ready to Begin?</h2>
+        <p style="margin: 15px 0; color: var(--muted);">Includes 20 multiple-choice questions (25 seconds each with instant feedback and explanations for wrong answers) followed by 5 coding challenges (10 minutes each).</p>
+        <button class="btn" onclick="startAssessment()">Start Assessment</button>
+    </div>
+
+    <!-- Quiz Section -->
+    <div id="quiz-container" class="card hidden">
+        <div class="flex-between">
+            <span class="badge" id="quiz-counter">Question 1 of 20</span>
+            <div class="stats-bar">
+                <span class="score-badge" id="live-score">Score: 0</span>
+                <span class="streak-badge" id="live-streak">Streak: 0</span>
+            </div>
+            <span class="timer" id="quiz-timer">25s</span>
+        </div>
+        <div class="question-title" id="quiz-question">Question text goes here</div>
+        <div id="quiz-code-container"></div>
+        <div class="options" id="quiz-options"></div>
+        <div id="explanation-container" class="explanation-box hidden"></div>
+        <button class="btn hidden" id="quiz-next-btn" onclick="nextQuizQuestion()">Next Question</button>
+    </div>
+
+    <!-- Coding Challenge Section -->
+    <div id="coding-container" class="card hidden">
+        <div class="flex-between">
+            <span class="badge" id="coding-counter">Challenge 1 of 5</span>
+            <span class="timer" id="coding-timer">10:00</span>
+        </div>
+        <div class="question-title" id="coding-title">Challenge Title</div>
+        <p id="coding-desc" style="margin-bottom: 15px; color: var(--muted); font-size: 14px;"></p>
+        <textarea id="code-input" placeholder="Write your Python code here..."></textarea>
+        <button class="btn" onclick="submitCode()">Submit Code</button>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="card results-summary hidden">
+        <h2>Assessment Completed!</h2>
+        <p id="final-score" style="font-size: 18px; margin: 15px 0;"></p>
+        <button class="btn" onclick="location.reload()">Restart Assessment</button>
+    </div>
+</div>
+
+<script>
+const quizData = [
+    {
+        question: "What is the primary purpose of a <code>for</code> loop in Python?",
+        options: [
+            "To iterate over a sequence or range of numbers.",
+            "To execute code infinitely until an external signal stops it.",
+            "To declare variable names dynamically.",
+            "To import external packages into a script."
+        ],
+        answer: 0,
+        explanation: "A for loop in Python is designed to iterate over sequences (like strings or numbers generated by range)."
+    },
+    {
+        question: "When is a <code>while</code> loop typically used instead of a <code>for</code> loop?",
+        options: [
+            "When iterating over items with known fixed indices.",
+            "When the repetition depends on a changing condition rather than a fixed sequence.",
+            "When you want code to execute exactly once.",
+            "When optimizing memory utilization."
+        ],
+        answer: 1,
+        explanation: "While loops repeat a block of statements as long as a specified condition evaluates to True, ideal for unknown iteration counts."
+    },
+    {
+        question: "What will be the output of the following code snippet?",
+        code: "for i in range(3):\n    print(i, end=' ')",
+        options: ["1 2 3", "0 1 2", "0 1 2 3", "1 2"],
+        answer: 1,
+        explanation: "<code>range(3)</code> starts at 0 by default and stops before 3, yielding 0, 1, and 2."
+    },
+    {
+        question: "What output does this code produce?",
+        code: "for i in range(1, 4):\n    print(i, end=' ')",
+        options: ["0 1 2 3", "1 2 3", "1 2 3 4", "0 1 2"],
+        answer: 1,
+        explanation: "<code>range(1, 4)</code> starts at 1 and stops before 4, generating numbers 1, 2, and 3."
+    },
+    {
+        question: "What will be printed by the following code?",
+        code: "for i in range(0, 5, 2):\n    print(i, end=' ')",
+        options: ["0 1 2 3 4", "1 3 5", "0 2 4", "2 4"],
+        answer: 2,
+        explanation: "The third parameter (2) acts as the step value, outputting 0, then 0 + 2 = 2, then 2 + 2 = 4."
+    },
+    {
+        question: "Identify the missing component that causes an infinite loop in this code:",
+        code: "x = 1\nwhile x < 3:\n    print(x)\n    # missing statement",
+        options: ["x = x + 1", "x = 0", "print(0)", "stop"],
+        answer: 0,
+        explanation: "Without incrementing `x` (e.g., `x = x + 1`), `x < 3` remains permanently True, creating an infinite loop."
+    },
+    {
+        question: "What error does Python raise if the statements inside a loop are not indented properly?",
+        options: ["SyntaxError", "NameError", "IndentationError", "TypeError"],
+        answer: 2,
+        explanation: "Python relies strictly on indentation to determine blocks of code; improper indentation throws an IndentationError."
+    },
+    {
+        question: "What is the final value of <code>total</code> after execution?",
+        code: "total = 0\nfor i in range(1, 4):\n    total += i\nprint(total)",
+        options: ["3", "6", "4", "10"],
+        answer: 1,
+        explanation: "The loop adds 1, then 2, then 3 to total, resulting in 0 + 1 + 2 + 3 = 6."
+    },
+    {
+        question: "What will be the final value of <code>count</code>?",
+        code: "count = 0\nwhile count < 3:\n    count += 1\nprint(count)",
+        options: ["2", "3", "4", "0"],
+        answer: 1,
+        explanation: "The loop runs when count is 0, 1, and 2, incrementing each time until count becomes 3 where the condition `count < 3` fails."
+    },
+    {
+        question: "How many times will the following loop iterate?",
+        code: "for i in range(5):\n    print(i)",
+        options: ["4", "5", "6", "0"],
+        answer: 1,
+        explanation: "<code>range(5)</code> generates 5 integers (0 through 4), causing the loop body to execute 5 times."
+    },
+    {
+        question: "What output does this code produce?",
+        code: "word = 'Hi'\nfor char in word:\n    print(char, end='')",
+        options: ["H i", "Hi", "iH", "HH"],
+        answer: 1,
+        explanation: "Iterating over a string accesses each character sequentially ('H' then 'i'), printing them together with `end=''`."
+    },
+    {
+        question: "What exception occurs if an accumulator variable is used in a loop without initial declaration?",
+        code: "for i in range(3):\n    total += i",
+        options: ["NameError", "ValueError", "TypeError", "IndexError"],
+        answer: 0,
+        explanation: "Using `total` before assigning it an initial value (like `total = 0`) causes a NameError because the variable does not exist yet."
+    },
+    {
+        question: "What will be the final value of <code>x</code> after this code runs?",
+        code: "x = 10\nwhile x < 5:\n    x += 1\nprint(x)",
+        options: ["5", "10", "15", "0"],
+        answer: 1,
+        explanation: "Since the condition `x < 5` (10 < 5) is false from the start, the while loop body never executes, leaving `x` at 10."
+    },
+    {
+        question: "What is the primary technical difference between a <code>for</code> loop and a <code>while</code> loop?",
+        options: [
+            "For loops can only process numbers, while loops process strings.",
+            "For loops iterate over a predefined sequence or range, whereas while loops run based on a boolean condition.",
+            "While loops execute faster than for loops in all scenarios.",
+            "There is no difference; they are interchangeable keywords."
+        ],
+        answer: 1,
+        explanation: "For loops are sequence-driven, whereas while loops are condition-driven."
+    },
+    {
+        question: "What is the output of the following code?",
+        code: "for i in range(3, 0, -1):\n    print(i, end=' ')",
+        options: ["3 2 1", "1 2 3", "3 2 1 0", "0 1 2 3"],
+        answer: 0,
+        explanation: "With a negative step (-1), range counts downwards starting from 3 down to, but not including, 0 (yielding 3, 2, 1)."
+    },
+    {
+        question: "What is the final value of <code>p</code> after execution?",
+        code: "p = 1\nfor i in range(1, 4):\n    p *= i\nprint(p)",
+        options: ["3", "6", "1", "24"],
+        answer: 1,
+        explanation: "p starts at 1. Iterations multiply p by 1, then 2, then 3, resulting in 1 * 1 * 2 * 3 = 6."
+    },
+    {
+        question: "Which loop type is ideal for prompting a user for input until they type the correct password?",
+        options: [
+            "A for loop with a fixed range",
+            "A while loop checking condition validity",
+            "An empty loop without keywords",
+            "A loop is unnecessary for user validation"
+        ],
+        answer: 1,
+        explanation: "Since the number of attempts a user might take is unknown beforehand, a while loop is the standard choice."
+    },
+    {
+        question: "If you want a range of numbers from 1 to 5 inclusive using <code>range()</code>, what should you write?",
+        options: ["range(1, 5)", "range(1, 6)", "range(5)", "range(0, 5)"],
+        answer: 1,
+        explanation: "Because range stops before the second argument, `range(1, 6)` generates 1, 2, 3, 4, and 5."
+    },
+    {
+        question: "What will be printed by this snippet?",
+        code: "x = 0\nfor i in range(4):\n    x += i\nprint(x)",
+        options: ["4", "6", "10", "0"],
+        answer: 1,
+        explanation: "x accumulates values of i: 0 + 0 + 1 + 2 + 3 = 6."
+    },
+    {
+        question: "What happens if the loop condition in a <code>while</code> loop never evaluates to False?",
+        options: [
+            "The program throws a ConditionError.",
+            "The loop terminates automatically after 100 iterations.",
+            "An infinite loop occurs, freezing execution.",
+            "Python converts it into a for loop."
+        ],
+        answer: 2,
+        explanation: "If a loop condition never becomes false, the program hangs in an infinite loop."
+    }
+];
+
+const codingData = [
+    {
+        title: "Challenge 1: Sum of Numbers",
+        description: "Use a for loop to calculate the sum of all numbers from 1 to 50. Expected output: Sum = 1275.",
+        starter: "# Write your code here\n"
+    },
+    {
+        title: "Challenge 2: Even and Odd Counter",
+        description: "Ask the user for a positive integer n. Use a for loop to count how many even and odd numbers exist between 1 and n.",
+        starter: "# Write your code here\n"
+    },
+    {
+        title: "Challenge 3: Gaming Tournament Leaderboard",
+        description: "A gaming tournament has 5 players. Ask for each player's name and score. Use a for loop to collect data, calculate total and average score, and identify the player with the highest score.",
+        starter: "# Write your code here\n"
+    },
+    {
+        title: "Challenge 4: Guess the Number",
+        description: "Set a secret number in the program. Allow the user to guess repeatedly until correct. Display 'Too high!' or 'Too low!' after incorrect guesses.",
+        starter: "# Write your code here\n"
+    },
+    {
+        title: "Challenge 5: Digit Sum Calculator",
+        description: "Ask the user to enter a positive integer. Use a while loop to calculate the sum of its digits (e.g., input 5832 -> Sum of digits: 18).",
+        starter: "# Write your code here\n"
+    }
+];
+
+let currentQuizIndex = 0;
+let score = 0;
+let streak = 0;
+let quizTimer;
+let quizTimeLeft = 25;
+
+let currentCodingIndex = 0;
+let codingTimer;
+let codingTimeLeft = 600; // 10 minutes
+
+function startAssessment() {
+    document.getElementById("start-screen").classList.add("hidden");
+    document.getElementById("quiz-container").classList.remove("hidden");
+    loadQuizQuestion();
+}
+
+function updateStatsDisplay() {
+    document.getElementById("live-score").innerText = `Score: ${score}`;
+    document.getElementById("live-streak").innerText = `Streak: ${streak}`;
+}
+
+function loadQuizQuestion() {
+    if (currentQuizIndex >= quizData.length) {
+        document.getElementById("quiz-container").classList.add("hidden");
+        startCodingChallenges();
+        return;
+    }
+
+    quizTimeLeft = 25;
+    document.getElementById("quiz-timer").innerText = quizTimeLeft + "s";
+    document.getElementById("quiz-counter").innerText = `Question ${currentQuizIndex + 1} of 20`;
+    updateStatsDisplay();
+    
+    const q = quizData[currentQuizIndex];
+    document.getElementById("quiz-question").innerHTML = q.question;
+    
+    const codeContainer = document.getElementById("quiz-code-container");
+    codeContainer.innerHTML = q.code ? `<pre>${q.code}</pre>` : "";
+
+    const optionsContainer = document.getElementById("quiz-options");
+    optionsContainer.innerHTML = "";
+
+    const explanationContainer = document.getElementById("explanation-container");
+    explanationContainer.classList.add("hidden");
+    explanationContainer.innerHTML = "";
+    
+    q.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.innerHTML = opt;
+        btn.onclick = () => selectQuizOption(idx);
+        optionsContainer.appendChild(btn);
+    });
+
+    document.getElementById("quiz-next-btn").classList.add("hidden");
+
+    clearInterval(quizTimer);
+    quizTimer = setInterval(() => {
+        quizTimeLeft--;
+        document.getElementById("quiz-timer").innerText = quizTimeLeft + "s";
+        if (quizTimeLeft <= 0) {
+            clearInterval(quizTimer);
+            lockQuizAnswers(null);
+        }
+    }, 1000);
+}
+
+function selectQuizOption(selectedIdx) {
+    clearInterval(quizTimer);
+    lockQuizAnswers(selectedIdx);
+}
+
+function lockQuizAnswers(selectedIdx) {
+    const q = quizData[currentQuizIndex];
+    const buttons = document.querySelectorAll("#quiz-options .option-btn");
+    
+    buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.answer) {
+            btn.classList.add("correct");
+        } else if (idx === selectedIdx) {
+            btn.classList.add("incorrect");
+        }
+    });
+
+    if (selectedIdx === q.answer) {
+        score++;
+        streak++;
+    } else {
+        streak = 0;
+        const explanationContainer = document.getElementById("explanation-container");
+        explanationContainer.innerHTML = `<strong>Explanation:</strong> ${q.explanation}`;
+        explanationContainer.classList.remove("hidden");
+    }
+
+    updateStatsDisplay();
+    document.getElementById("quiz-next-btn").classList.remove("hidden");
+}
+
+function nextQuizQuestion() {
+    currentQuizIndex++;
+    loadQuizQuestion();
+}
+
+function startCodingChallenges() {
+    document.getElementById("coding-container").classList.remove("hidden");
+    loadCodingChallenge();
+}
+
+function loadCodingChallenge() {
+    if (currentCodingIndex >= codingData.length) {
+        document.getElementById("coding-container").classList.add("hidden");
+        showResults();
+        return;
+    }
+
+    codingTimeLeft = 600;
+    updateCodingTimerDisplay();
+    document.getElementById("coding-counter").innerText = `Challenge ${currentCodingIndex + 1} of 5`;
+    
+    const c = codingData[currentCodingIndex];
+    document.getElementById("coding-title").innerText = c.title;
+    document.getElementById("coding-desc").innerText = c.description;
+    document.getElementById("code-input").value = c.starter;
+
+    clearInterval(codingTimer);
+    codingTimer = setInterval(() => {
+        codingTimeLeft--;
+        updateCodingTimerDisplay();
+        if (codingTimeLeft <= 0) {
+            clearInterval(codingTimer);
+            submitCode();
+        }
+    }, 1000);
+}
+
+function updateCodingTimerDisplay() {
+    const minutes = Math.floor(codingTimeLeft / 60);
+    const seconds = codingTimeLeft % 60;
+    document.getElementById("coding-timer").innerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+function submitCode() {
+    clearInterval(codingTimer);
+    currentCodingIndex++;
+    loadCodingChallenge();
+}
+
+function showResults() {
+    document.getElementById("results-screen").classList.remove("hidden");
+    document.getElementById("final-score").innerText = `You scored ${score} out of 20 on the theory/logic quiz! All 5 coding challenges submitted successfully.`;
+}
+</script>
+
+</body>
+</html>
